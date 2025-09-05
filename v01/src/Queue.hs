@@ -1,18 +1,24 @@
 module Queue
-    ( empty,
-      enqueue,
-      dequeue
-    ) where
+  ( empty,
+    enqueue,
+    dequeue,
+  )
+where
 
-import Prelude(error,Int,(++))
+import Prelude (Int, error, (++))
 
-type Queue = ([Int],[Int])
+type Queue = ([Int], [Int]) -- ([popping list], [pushing list])
 
-empty :: Queue
+-- When popping list is empty, pushing list is reversed and becomes popping list, pushing list set to empty
+manageLists :: Queue -> Queue
+manageLists ([], push) = (reverse push, []) --  Case where lists get flipped
+manageLists q = q -- Case where queue does not need flipping
+
+empty :: Queue -- Create an empty queue
 empty = error "Not Implemented"
 
-enqueue :: Queue -> Int -> Queue
+enqueue :: Queue -> Int -> Queue -- Add an element to the queue
 enqueue = error "Not Implemented"
 
-dequeue :: Queue -> (Int,Queue)
-dequeue = error "Not Implemented"
+dequeue :: Queue -> (Int, Queue)
+dequeue = error "Not Implemented" -- Remove and return the next element to be dequeued
