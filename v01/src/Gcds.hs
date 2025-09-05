@@ -21,16 +21,21 @@ allDivisors' k n =
     then n : allDivisors' k (n - 1)
     else allDivisors' k (n - 1)
 
-isElement :: Int -> [Int] -> Bool
-isElement _ [] = False
-isElement x (y:ys) =
-  if x==y
-    then True
-  else isElement x ys
+-- False = (1 == 0)
+-- True = (1 == 1)
+isElement :: Int -> [Int] -> Bool -- Since elem is not available
+isElement _ [] = (1 == 0)
+isElement x (y : ys) =
+  if x == y
+    then (1 == 1)
+    else isElement x ys
 
 listIntersection :: [Int] -> [Int] -> [Int] -- Take the numbers that are present in both lists and return only those
 listIntersection [] _ = []
-listIntersection (x:xs) ys = 
+listIntersection (x : xs) ys =
+  if x `isElement` ys
+    then x : listIntersection xs ys -- Cut off the head, recursing through the list, but adding head to return list
+    else listIntersection xs ys -- Keep only any potentially remaining elements of list x
 
 listGcd :: Int -> Int -> Int
 listGcd = error "Not Implemented"
