@@ -25,5 +25,7 @@ empty = ([], []) --  Generic case
 enqueue :: Queue -> Int -> Queue -- Add an element to the queue, prepend to push list
 enqueue (pop, push) e = (pop, e : push)
 
-dequeue :: Queue -> (Int, Queue)
-dequeue = error "Not Implemented" -- Remove and return the next element to be dequeued
+dequeue :: Queue -> (Int, Queue) -- Remove and return the next element to be dequeued
+dequeue ([], []) = (0, empty) --  Case where queue is empty
+dequeue ([], push) = dequeue (manageLists ([], push)) -- Popping list is empty, pushing list is not (hard case)
+dequeue (p : ps, push) = (p, (ps, push)) --  Popping list is nonempty
