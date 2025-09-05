@@ -16,9 +16,10 @@ allDivisors k = allDivisors' k k
 
 allDivisors' :: Int -> Int -> [Int]
 allDivisors' k 0 = []
-allDivisors' k n
-  | n `isDivisor` k = n : allDivisors' k (n - 1)
-  | n `isDivisor` k == (1 == 0) = allDivisors' k (n - 1) -- since False, not, and other are not available
+allDivisors' k n =
+  if n `isDivisor` k
+    then n : allDivisors' k (n - 1)
+    else allDivisors' k (n - 1)
 
 listIntersection :: [Int] -> [Int] -> [Int]
 listIntersection = error "Not Implemented"
