@@ -9,7 +9,7 @@ where
 import Prelude (Bool, Int, error, mod, (*), (+), (-), (/), (<), (==))
 
 isDivisor :: Int -> Int -> Bool
-isDivisor x y = x `mod` y == 0
+isDivisor x y = y `mod` x == 0
 
 allDivisors :: Int -> [Int]
 allDivisors k = allDivisors' k k
@@ -34,8 +34,11 @@ listIntersection :: [Int] -> [Int] -> [Int] -- Take the numbers that are present
 listIntersection [] _ = []
 listIntersection (x : xs) ys =
   if x `isElement` ys
-    then x : listIntersection xs ys -- Cut off the head, recursing through the list, but adding head to return list
+    then x : listIntersection xs ys -- Recurse through the tail, but adding head to return list
     else listIntersection xs ys -- Keep only any potentially remaining elements of list x
 
 listGcd :: Int -> Int -> Int
-listGcd = error "Not Implemented"
+listGcd a b =
+  x
+  where
+    (x : xs) = listIntersection (allDivisors a) (allDivisors b)
