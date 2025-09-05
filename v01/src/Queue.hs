@@ -15,7 +15,8 @@ manageLists ([], push) = (reverse push, []) --  Case where lists get flipped
 manageLists q = q -- Case where queue does not need flipping
 
 empty :: Queue -- Create an empty queue
-empty = error "Not Implemented"
+empty = ([], []) --  Generic case
+-- empty a b = ([a], [b]) -- Incase user wants to specify elements as given in the example
 
 enqueue :: Queue -> Int -> Queue -- Add an element to the queue
 enqueue = error "Not Implemented"
