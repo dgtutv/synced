@@ -22,8 +22,8 @@ manageLists q = q -- Case where queue does not need flipping
 empty :: Queue -- Create an empty queue
 empty = ([], []) --  Generic case
 
-enqueue :: Queue -> Int -> Queue -- Add an element to the queue
-enqueue = error "Not Implemented"
+enqueue :: Queue -> Int -> Queue -- Add an element to the queue, prepend to push list
+enqueue (pop, push) e = (pop, e : push)
 
 dequeue :: Queue -> (Int, Queue)
 dequeue = error "Not Implemented" -- Remove and return the next element to be dequeued
