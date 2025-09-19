@@ -37,4 +37,5 @@ sumEvens xs = sum (filter even xs)
     sum (y : ys) = y + sum ys
 
 flatten :: [[a]] -> [a]
-flatten = error "Unimplemented"
+flatten [] = []
+flatten (x : xs) = x ++ flatten xs
