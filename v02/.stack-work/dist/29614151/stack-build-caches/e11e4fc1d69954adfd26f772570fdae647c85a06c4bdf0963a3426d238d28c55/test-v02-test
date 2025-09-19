@@ -1,0 +1,18 @@
+C:\Users\dgtut\AppData\Local\Programs\stack\x86_64-windows\ghc-9.6.7\lib\x86_64-windows-ghc-9.6.7\rts-1.0.2\include\ghcversion.h:
+  hash: 215ddac5a644eddece4748021e2caff6400a517822aedd66e9e9caf511124db8
+? C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\v02\.stack-work\dist\29614151\build\v02-test\autogen\Paths_v02.hs
+: hash: 1ba42abb0ff95ac67f855a54c919dd7fe4aa32e598ae45cd57f5d461f3c7aa74
+? C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\v02\.stack-work\dist\29614151\build\v02-test\autogen\cabal_macros.h
+: hash: 78e928f385f201ef2ffaa94e592d4a9a063a553727f402bfb873638d35e11dda
+C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\v02\package.yaml:
+  hash: cedbffea81c12478911b575c219c8d5730338511dbeba0769e116961b67a80b0
+C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\v02\test\ListHOFsTests.hs:
+  hash: d89b89b89acc7b12d5edb7824c3e7cfa14577d75bcecd846fd6f7dd12cc60cdc
+C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\v02\test\TestRunner.hs:
+  hash: beacd105ed6db9b80b6f59014a191ea42e9d3255c79ce26fbe3ca47908864a61
+C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\v02\test\TestingFramework.hs:
+  hash: c1acf273b0e83692c15def4cc2c3a7f3a6845b84a2e9eecc2b99eb401409e627
+C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\v02\test\TreeHOFsTests.hs:
+  hash: 543e3352af5e4cddc0044a141db7a51f1163552614de61ac17b5642d0e0acb81
+C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\v02\v02.cabal:
+  hash: 5386130bcdc8e5a206a0432f2cd154292c540447c78f79d03c1bf245d95518e1
