@@ -1,0 +1,73 @@
+# HLint configuration file
+# https://github.com/ndmitchell/hlint
+##########################
+
+- ignore: {name: "*"}
+- ignore: {name: "Redundant list comprehension"}
+- ignore: {name: "Use lambda-case"}
+- ignore: {name: "Use foldr"}
+- ignore: {name: "Use guards"}
+
+- modules:
+  - {name: [Data.Set, Data.HashSet], as: Set} # if you import Data.Set qualified, it must be as 'Set'
+  - {name: Control.Arrow, within: []} # Certain modules are banned entirely
+
+- error:
+    name: "Do not use list comprehensions"
+    lhs: "[a | b <- c]"
+    rhs: "error \"List comprehensions are not allowed\""
+
+- error:
+    name: "Do not use list comprehensions"
+    lhs: "[a | b <- c, d <- e]"
+    rhs: "error \"List comprehensions are not allowed\""
+
+- error:
+    name: "Do not use list comprehensions"
+    lhs: "[a | b <- c, d <- e, f <- g]"
+    rhs: "error \"List comprehensions are not allowed\""
+
+- error:
+    name: "Do not use list comprehensions"
+    lhs: "[a | b <- c, d <- e, f <- g, h <- i]"
+    rhs: "error \"List comprehensions are not allowed\""
+
+- error:
+    name: "Do not use list comprehensions"
+    lhs: "[a | b <- c, d <- e, f <- g, h <- i, j <- k]"
+    rhs: "error \"List comprehensions are not allowed\""
+
+- error:
+    name: "Do not use list comprehensions"
+    lhs: "[a | b <- c, d <- e, f <- g, h <- i, j <- k, l <- m]"
+    rhs: "error \"List comprehensions are not allowed\""
+
+- error:
+    name: "Do not use list comprehensions"
+    lhs: "[a | b <- c, d <- e, f <- g, h <- i, j <- k, l <- m, n <- o]"
+    rhs: "error \"List comprehensions are not allowed\""
+
+- error:
+    name: "Do not use list comprehensions"
+    lhs: "[a | b <- c, d <- e, f <- g, h <- i, j <- k, l <- m, n <- o, p <- q]"
+    rhs: "error \"List comprehensions are not allowed\""
+
+- error:
+    name: "Do not use list comprehensions"
+    lhs: "[a | b <- c, d <- e, f <- g, h <- i, j <- k, l <- m, n <- o, p <- q, r <- s]"
+    rhs: "error \"List comprehensions are not allowed\""
+
+- error:
+    name: "Do not use list comprehensions"
+    lhs: "[a | b <- c, d <- e, f <- g, h <- i, j <- k, l <- m, n <- o, p <- q, r <- s, t <- u]"
+    rhs: "error \"List comprehensions are not allowed\""
+
+- error:
+    name: "Do not use list comprehensions"
+    lhs: "[a | b <- c, d <- e, f <- g, h <- i, j <- k, l <- m, n <- o, p <- q, r <- s, t <- u, v <- w]"
+    rhs: "error \"List comprehensions are not allowed\""
+
+- error:
+    name: "Do not use list comprehensions"
+    lhs: "[a | b <- c, d <- e, f <- g, h <- i, j <- k, l <- m, n <- o, p <- q, r <- s, t <- u, v <- w, x <- y]"
+    rhs: "error \"List comprehensions are not allowed\""

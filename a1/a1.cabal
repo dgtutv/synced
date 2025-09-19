@@ -1,0 +1,52 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.34.4.
+--
+-- see: https://github.com/sol/hpack
+
+name:           a1
+version:        0.1.0.0
+build-type:     Simple
+
+library
+  exposed-modules:
+      GameEngine
+      Helpers
+  other-modules:
+      Paths_a1
+  hs-source-dirs:
+      src
+  ghc-options: -Wincomplete-uni-patterns -Wmissing-home-modules
+  build-depends:
+      base >=4.7 && <5
+    , random
+  default-language: Haskell2010
+
+executable a1-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_a1
+  hs-source-dirs:
+      app
+  ghc-options: -Wincomplete-uni-patterns -Wmissing-home-modules -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      a1
+    , base >=4.7 && <5
+    , random
+  default-language: Haskell2010
+
+test-suite a1-test
+  type: exitcode-stdio-1.0
+  main-is: TestRunner.hs
+  other-modules:
+      GameEngineTests
+      TestingFramework
+      Paths_a1
+  hs-source-dirs:
+      test
+  ghc-options: -Wincomplete-uni-patterns -Wmissing-home-modules -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      a1
+    , base >=4.7 && <5
+    , random
+  default-language: Haskell2010
