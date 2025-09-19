@@ -21,7 +21,8 @@ zip (x : xs) (y : ys) =
     Nothing -> Nothing
 
 alternatingMap :: (a -> b) -> (a -> b) -> [a] -> [b]
-alternatingMap = error "Unimplemented"
+alternatingMap f1 f2 [] = []
+alternatingMap f1 f2 (x : xs) = f1 x : alternatingMap f2 f1 xs
 
 sumEvens :: [Int] -> Int
 sumEvens = error "Unimplemented"
