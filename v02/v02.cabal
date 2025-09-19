@@ -1,0 +1,38 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.34.4.
+--
+-- see: https://github.com/sol/hpack
+
+name:           v02
+version:        0.1.0.0
+build-type:     Simple
+
+library
+  exposed-modules:
+      ListHOFs
+      TreeHOFs
+  other-modules:
+      Paths_v02
+  hs-source-dirs:
+      src
+  ghc-options: -Wcompat -Wincomplete-uni-patterns -Wmissing-home-modules
+  build-depends:
+      base >=4.7 && <5
+  default-language: Haskell2010
+
+test-suite v02-test
+  type: exitcode-stdio-1.0
+  main-is: TestRunner.hs
+  other-modules:
+      ListHOFsTests
+      TestingFramework
+      TreeHOFsTests
+      Paths_v02
+  hs-source-dirs:
+      test
+  ghc-options: -Wcompat -Wincomplete-uni-patterns -Wmissing-home-modules -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , v02
+  default-language: Haskell2010
