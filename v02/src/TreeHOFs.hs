@@ -25,8 +25,7 @@ treeHeight :: Tree a -> Int
 treeHeight = treeFold (\lh _ rh -> 1 + max lh rh) 0
 
 treeSum :: Tree Int -> Int
-treeSum Leaf = 0
-treeSum (Node (ln, v, rn)) = treeSum ln + v + treeSum rn
+treeSum = treeFold (\lh v rh -> lh + v + rh) 0
 
 treeSizer :: Tree a -> Tree (a, Int)
 treeSizer = error "Unimplemented"
