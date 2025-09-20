@@ -2,31 +2,39 @@
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 
 module GameEngine
-    (   Score (..),
-        toCandidateBasis,
-        extractBases,
-        basisToPuzzle,
-        isWordCorrect,
-        allAnswers,
-        finalScore,
-        cheat
-    ) where
+  ( Score (..),
+    toCandidateBasis,
+    extractBases,
+    basisToPuzzle,
+    isWordCorrect,
+    allAnswers,
+    finalScore,
+    cheat,
+  )
+where
 
 import Helpers
-import Prelude hiding (foldl, foldr, init, map, length, filter, bind, (>>=), (>>), return, fail, null, concat, concatMap, (!!))
+import Prelude hiding (bind, concat, concatMap, fail, filter, foldl, foldr, init, length, map, null, return, (!!), (>>), (>>=))
 
 data Score = Zero | Bad | OK | Good | Great | Perfect
-    deriving (Eq, Show)
+  deriving (Eq, Show)
 
 type Dictionary = [String]
+
 type Basis = [Char]
-type Puzzle = (Char,[Char])
+
+type Puzzle = (Char, [Char])
 
 toCandidateBasis :: String -> Maybe Basis
-toCandidateBasis = error "Unimplemented"
+toCandidateBasis s
+  | length s /= 7 = Nothing
+  | length s == 7 = Just $ sort s
 
 extractBases :: [String] -> [String]
-extractBases = error "Unimplemented"
+extractBases dict = basisList
+  where
+    basisList = map toCandidateBasis filteredDict
+    filteredDict = filter (\curr -> length curr == 7) dict
 
 basisToPuzzle :: Basis -> Int -> Puzzle
 basisToPuzzle = error "Unimplemented"
