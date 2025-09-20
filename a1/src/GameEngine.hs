@@ -37,7 +37,9 @@ extractBases dict = basisList
     filteredDict = filter (\curr -> length curr == 7) dict
 
 basisToPuzzle :: Basis -> Int -> Puzzle
-basisToPuzzle = error "Unimplemented"
+basisToPuzzle basis index = (currChar, filter (/= currChar) basis)
+  where
+    currChar = basis !! index
 
 isWordCorrect :: Dictionary -> Puzzle -> String -> Bool
 isWordCorrect = error "Unimplemented"

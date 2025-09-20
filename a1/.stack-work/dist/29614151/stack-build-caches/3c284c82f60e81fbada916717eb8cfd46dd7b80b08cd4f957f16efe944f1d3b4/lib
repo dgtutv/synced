@@ -2,13 +2,11 @@ C:\Users\dgtut\AppData\Local\Programs\stack\x86_64-windows\ghc-9.6.7\lib\x86_64-
   hash: 215ddac5a644eddece4748021e2caff6400a517822aedd66e9e9caf511124db8
 ? C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\a1\.stack-work\dist\29614151\build\autogen\Paths_a1.hs
 : hash: a41d467cc942aea82c483568da6a4d8ea959e0c735b1648bd4f265800d8b29db
-? C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\a1\.stack-work\dist\29614151\build\autogen\cabal_macros.h
-: hash: 4ffa1f516b0efbb9cb9893b1a801d8dba3bba94c8f9910648064d28579488cd1
 C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\a1\a1.cabal:
   hash: 4ca5e605ca87dd29d3fa9690b0ab4733357cb7a8a58d94c59c2c060d8722e2d4
 C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\a1\package.yaml:
   hash: 0853f11c1053ca3cd2952300410ac8cf02adaf9819e2b84ed379d6329a10ac56
 C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\a1\src\GameEngine.hs:
-  hash: bca9fbc2a354b85edae036c7f7460c31a15afb5ba7c41485bbe4e9a324ef4cc5
+  hash: cda41535c8093f54b323decb580cf634c2a1fd80ae4ae8371f6e6c2a3542e100
 C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\a1\src\Helpers.hs:
   hash: 7f7ca6a82e45531732c7ad0fa7cdb164f8ee488ab79e0e575359a4403ec67877
