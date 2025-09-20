@@ -22,8 +22,7 @@ treeFold f v Leaf = v
 treeFold f v (Node (ln, nv, rn)) = f (treeFold f v ln) nv (treeFold f v rn)
 
 treeHeight :: Tree a -> Int
-treeHeight Leaf = 0
-treeHeight (Node (ln, v, rn)) = 1 + treeHeight ln
+treeHeight = treeFold (\lh _ rh -> 1 + max lh rh) 0
 
 treeSum :: Tree Int -> Int
 treeSum Leaf = 0
