@@ -22,10 +22,12 @@ treeFold f v Leaf = v
 treeFold f v (Node (ln, nv, rn)) = f (treeFold f v ln) nv (treeFold f v rn)
 
 treeHeight :: Tree a -> Int
-treeHeight = error "Unimplemented"
+treeHeight Leaf = 0
+treeHeight (Node (ln, v, rn)) = 1 + treeHeight ln
 
 treeSum :: Tree Int -> Int
-treeSum = error "Unimplemented"
+treeSum Leaf = 0
+treeSum (Node (ln, v, rn)) = treeSum ln + v + treeSum rn
 
 treeSizer :: Tree a -> Tree (a, Int)
 treeSizer = error "Unimplemented"
