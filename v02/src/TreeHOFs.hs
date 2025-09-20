@@ -18,7 +18,8 @@ treeMap _ Leaf = Leaf
 treeMap f (Node (ln, v, rn)) = Node (treeMap f ln, f v, treeMap f rn)
 
 treeFold :: (b -> a -> b -> b) -> b -> Tree a -> b
-treeFold f b Leaf = b
+treeFold f v Leaf = v
+treeFold f v (Node (ln, nv, rn)) = f (treeFold f v ln) nv (treeFold f v rn)
 
 treeHeight :: Tree a -> Int
 treeHeight = error "Unimplemented"
