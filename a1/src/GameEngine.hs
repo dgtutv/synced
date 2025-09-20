@@ -33,7 +33,7 @@ toCandidateBasis s
 extractBases :: [String] -> [String]
 extractBases dict = basisList
   where
-    basisList = map toCandidateBasis filteredDict
+    basisList = [b | Just b <- map toCandidateBasis filteredDict] -- Convert to concrete type
     filteredDict = filter (\curr -> length curr == 7) dict
 
 basisToPuzzle :: Basis -> Int -> Puzzle
