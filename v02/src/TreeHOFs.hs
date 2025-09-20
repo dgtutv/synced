@@ -28,4 +28,10 @@ treeSum :: Tree Int -> Int
 treeSum = treeFold (\lh v rh -> lh + v + rh) 0
 
 treeSizer :: Tree a -> Tree (a, Int)
-treeSizer = error "Unimplemented"
+treeSizer = treeFold f Leaf
+  where
+    f :: Tree (a, Int) -> a -> Tree (a, Int) -> Tree (a, Int)
+    f ln nv rn = Node (ln, (nv, getSize ln + getSize rn + 1), rn)
+    getSize :: Tree (a, Int) -> Int
+    getSize Leaf = 0
+    getSize (Node (_, (_, s), _)) = s
