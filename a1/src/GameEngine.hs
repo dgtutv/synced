@@ -13,7 +13,7 @@ module GameEngine
   )
 where
 
-import Data.List ((!!))
+import Data.List ((!!)) -- Remove and implement before submitting
 import Helpers
 import Prelude hiding (bind, concat, concatMap, fail, filter, foldl, foldr, init, length, map, null, return, (!!), (>>), (>>=))
 
