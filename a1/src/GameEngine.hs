@@ -55,11 +55,11 @@ basisToPuzzle basis index = (currChar, filter (/= currChar) basis)
 
 -- Returns true if provided string in dictionary && provided string only contains letters in the puzzle and contains at least one instance of char in puzzle
 isWordCorrect :: Dictionary -> Puzzle -> String -> Bool
-isWordCorrect dict puzzle str = stringInPuzzle && exclusiveLetters puzzle && containsChar puzzle
+isWordCorrect dict puzzle str = stringInPuzzle && exclusiveLetters str puzzle && containsChar puzzle
   where
     stringInPuzzle = count str dict > 0
-    exclusiveLetters (x, []) = count x str > 0
-    exclusiveLetters (x, xx : xs) = count x str > 0 && exclusiveLetters (xx, xs)
+    exclusiveLetters [] _ = True
+    exclusiveLetters (c : cs) (x, xs) = count c (x : xs) > 0 && exclusiveLetters cs (x, xs) -- Test the string against the puzzle, not the other way around
     containsChar (x, xs) = count x str > 0
 
 allAnswers :: Dictionary -> Puzzle -> [String]
