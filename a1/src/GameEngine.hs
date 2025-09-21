@@ -62,8 +62,14 @@ isWordCorrect dict puzzle str = stringInPuzzle && exclusiveLetters str puzzle &&
     exclusiveLetters (c : cs) (x, xs) = count c (x : xs) > 0 && exclusiveLetters cs (x, xs) -- Test the string against the puzzle, not the other way around
     containsChar (x, xs) = count x str > 0
 
+-- Calculates all valid answers to the puzzle
+-- Returns a list of strings that contain exactly one instance of every word, where isWordCorrect returns True
 allAnswers :: Dictionary -> Puzzle -> [String]
-allAnswers = error "Unimplemented"
+allAnswers [] _ = [] -- All answers to an empty dictionary is just an empty string
+allAnswers (x : xs) puzzle =
+  if isWordCorrect (x : xs) puzzle x -- If first word is valid, include in answer, otherwise dont
+    then x : allAnswers xs puzzle
+    else allAnswers xs puzzle
 
 finalScore :: Dictionary -> Puzzle -> [String] -> Score
 finalScore = error "Unimplemented"
