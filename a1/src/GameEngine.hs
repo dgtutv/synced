@@ -35,14 +35,16 @@ toCandidateBasis s
     removeDuplicates [x] = [x]
     removeDuplicates (x : xx : xs) =
       if x == xx
-        then removeDuplicates (xs) -- Remove both instances of duplicates
+        then removeDuplicates (filter (/= x) xs) -- Remove both instances of duplicates
         else x : removeDuplicates (xx : xs)
 
 extractBases :: [String] -> [String]
-extractBases dict = basisList
+extractBases dict = uniqueBases
   where
     basisList = [b | Just b <- map toCandidateBasis filteredDict] -- Convert to concrete type
-    filteredDict = filter (\curr -> length curr == 7) dict
+    filteredDict = filter (\curr -> length curr == 7) dict -- Filter only 7 length bases
+    uniqueBases = filter (\b -> count b basisList == 1) basisList -- Remove duplicates (may be re-introduced by scrambled bases containing same letters)
+    count x xs = length (filter (== x) xs)
 
 basisToPuzzle :: Basis -> Int -> Puzzle
 basisToPuzzle basis index = (currChar, filter (/= currChar) basis)
