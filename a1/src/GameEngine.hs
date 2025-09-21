@@ -13,7 +13,6 @@ module GameEngine
   )
 where
 
-import Data.List ((!!)) -- Remove and implement before submitting
 import Helpers
 import Prelude hiding (bind, concat, concatMap, fail, filter, foldl, foldr, init, length, map, null, return, (!!), (>>), (>>=))
 
@@ -51,7 +50,12 @@ extractBases dict = uniqueBases
 basisToPuzzle :: Basis -> Int -> Puzzle
 basisToPuzzle basis index = (currChar, filter (/= currChar) basis)
   where
-    currChar = basis !! index
+    currChar = charAt index basis
+
+    -- My implementation of indexing (subtract index until we are there)
+    charAt 0 (x : xs) = x
+    charAt i (x : xs) = charAt (i - 1) xs -- Not at 0, so next element
+    charAt _ [] = error "Index out of bounds" -- We reached end of list with non-zero index, so index is too large
 
 -- Returns true if provided string in dictionary && provided string only contains letters in the puzzle and contains at least one instance of char in puzzle
 isWordCorrect :: Dictionary -> Puzzle -> String -> Bool
