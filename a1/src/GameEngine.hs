@@ -38,21 +38,27 @@ toCandidateBasis s
         then removeDuplicates (filter (/= x) xs) -- Remove both instances of duplicates
         else x : removeDuplicates (xx : xs)
 
+count :: Eq a => a -> [a] -> Int    -- Moved outside of function scope to allow global use
+count x xs = length (filter (== x) xs)
+
 extractBases :: [String] -> [String]
 extractBases dict = uniqueBases
   where
     basisList = [b | Just b <- map toCandidateBasis filteredDict] -- Convert to concrete type
     filteredDict = filter (\curr -> length curr == 7) dict -- Filter only 7 length bases
     uniqueBases = filter (\b -> count b basisList == 1) basisList -- Remove duplicates (may be re-introduced by scrambled bases containing same letters)
-    count x xs = length (filter (== x) xs)
 
 basisToPuzzle :: Basis -> Int -> Puzzle
 basisToPuzzle basis index = (currChar, filter (/= currChar) basis)
   where
     currChar = basis !! index
 
-isWordCorrect :: Dictionary -> Puzzle -> String -> Bool
-isWordCorrect = error "Unimplemented"
+--Returns true if provided string in dictionary && provided string only contains letters in the puzzle and contains at least one instance of char in puzzle
+isWordCorrect :: Dictionary -> Puzzle -> String -> Bool   
+isWordCorrect dict puzzle str = stringInPuzzle && exclusiveLetters && containsChar
+  where
+    stringInPuzzle = count str dict > 0
+    exclusiveLetters
 
 allAnswers :: Dictionary -> Puzzle -> [String]
 allAnswers = error "Unimplemented"
