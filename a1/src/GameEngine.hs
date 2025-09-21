@@ -72,7 +72,25 @@ allAnswers (x : xs) puzzle =
     else allAnswers xs puzzle
 
 finalScore :: Dictionary -> Puzzle -> [String] -> Score
-finalScore = error "Unimplemented"
+finalScore dict puzzle ans
+  | p == 0 = Zero
+  | 0 < p && p < 0.25 = Bad
+  | 0.25 <= p && p < 0.5 = OK
+  | 0.5 <= p && p < 0.75 = Good
+  | 0.75 <= p && p < 1 = Great
+  | otherwise = Perfect
+  where
+    -- Iterate over user answers, calculate the amount correct
+    -- Then, count all correct answers
+    -- p is amount correct / all correct
+    p = fromIntegral (numUserCorrect ans) / fromIntegral numAllCorrect -- Necessary to convert integer to fractional for comparison
+    allCorrect = allAnswers dict puzzle
+    numAllCorrect = length allCorrect
+    numUserCorrect [] = 0
+    numUserCorrect (x : xs) =
+      if isWordCorrect dict puzzle x
+        then 1 + numUserCorrect xs
+        else numUserCorrect xs
 
 cheat :: (Puzzle -> String -> Bool) -> Int -> Puzzle -> [String]
 cheat = error "Unimplemented"
