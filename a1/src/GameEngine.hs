@@ -13,6 +13,7 @@ module GameEngine
   )
 where
 
+import Data.List ((!!))
 import Helpers
 import Prelude hiding (bind, concat, concatMap, fail, filter, foldl, foldr, init, length, map, null, return, (!!), (>>), (>>=))
 
@@ -28,7 +29,14 @@ type Puzzle = (Char, [Char])
 toCandidateBasis :: String -> Maybe Basis
 toCandidateBasis s
   | length s /= 7 = Nothing
-  | length s == 7 = Just $ sort s
+  | length s == 7 = Just $ removeDuplicates $ sort s
+  where
+    removeDuplicates [] = []
+    removeDuplicates [x] = [x]
+    removeDuplicates (x : xx : xs) =
+      if x == xx
+        then removeDuplicates (xs) -- Remove both instances of duplicates
+        else x : removeDuplicates (xx : xs)
 
 extractBases :: [String] -> [String]
 extractBases dict = basisList
