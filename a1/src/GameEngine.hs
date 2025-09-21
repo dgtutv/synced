@@ -38,7 +38,7 @@ toCandidateBasis s
         then removeDuplicates (filter (/= x) xs) -- Remove both instances of duplicates
         else x : removeDuplicates (xx : xs)
 
-count :: Eq a => a -> [a] -> Int    -- Moved outside of function scope to allow global use
+count :: (Eq a) => a -> [a] -> Int
 count x xs = length (filter (== x) xs)
 
 extractBases :: [String] -> [String]
@@ -53,12 +53,14 @@ basisToPuzzle basis index = (currChar, filter (/= currChar) basis)
   where
     currChar = basis !! index
 
---Returns true if provided string in dictionary && provided string only contains letters in the puzzle and contains at least one instance of char in puzzle
-isWordCorrect :: Dictionary -> Puzzle -> String -> Bool   
-isWordCorrect dict puzzle str = stringInPuzzle && exclusiveLetters && containsChar
+-- Returns true if provided string in dictionary && provided string only contains letters in the puzzle and contains at least one instance of char in puzzle
+isWordCorrect :: Dictionary -> Puzzle -> String -> Bool
+isWordCorrect dict puzzle str = stringInPuzzle && exclusiveLetters puzzle && containsChar puzzle
   where
     stringInPuzzle = count str dict > 0
-    exclusiveLetters
+    exclusiveLetters (x, []) = count x str > 0
+    exclusiveLetters (x, xx : xs) = count x str > 0 && exclusiveLetters (xx, xs)
+    containsChar (x, xs) = count x str > 0
 
 allAnswers :: Dictionary -> Puzzle -> [String]
 allAnswers = error "Unimplemented"
