@@ -92,5 +92,19 @@ finalScore dict puzzle ans
         then 1 + numUserCorrect xs
         else numUserCorrect xs
 
+-- valid solution predicate, numOfSolutions, puzzle, -> Answer
+
+-- Generate all possible combinations from puzzle of size i (recursive, start at size of puzzle)
+-- Filter all possible combinations using predicate
+-- Cut off final list to numSol results
 cheat :: (Puzzle -> String -> Bool) -> Int -> Puzzle -> [String]
-cheat = error "Unimplemented"
+cheat isValid numSol puzzle = take numSol (validGuesses 1) -- Limit to numSol solutions (why?)
+  where
+    letters = let (x, xs) = puzzle in x : xs -- Get letters in normal list form
+    validGuesses i =
+      if i > 7
+        then []
+        else filter (isValid puzzle) (guessesOfLen i letters) ++ validGuesses (i + 1) -- Only take valid guesses of curr num letters, and recursively call till we reach 7
+    guessesOfLen 0 _ = [""] -- Empty string only possibility for 0 letters
+    guessesOfLen _ [] = [] -- No letters, no guesses
+    guessesOfLen i (x : xs) = map (x :) (guessesOfLen (i - 1) letters) ++ guessesOfLen i xs -- All combos of length i, add x. Then recursively add combos from xs
