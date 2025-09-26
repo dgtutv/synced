@@ -57,7 +57,10 @@ count x xs = length (filter (== x) xs)
    However, this edit may cause duplicates to be added. After mapping the state,
    be sure to remove duplicate elements. -}
 mapState :: (Eq b) => (a -> b) -> State a -> State b
-mapState = error "Unimplemented"
+mapState fn (State {active = act, stack = st}) =
+  State {active = act, stack = filter (\b -> count b mappedStack == 1) mappedStack}
+  where
+    mappedStack = map fn st
 
 {- This pops all elements that satisfy a given predicate off the stack.
    The remaining elements on the stack are those that do not satisfy
