@@ -17,7 +17,7 @@ data State a = State {active :: Bool, stack :: [a]}
 {- This should create an empty state of your stack.
    By default, your stack should be active. -}
 empty :: State a
-empty = error "Unimplemented"
+empty = State {active = True, stack = []}
 
 {- This should push a new element onto your stack.
    In this stack, you cannot have two of the element on the stack.

@@ -1,0 +1,16 @@
+C:\Users\dgtut\AppData\Local\Programs\stack\x86_64-windows\ghc-9.6.7\lib\x86_64-windows-ghc-9.6.7\rts-1.0.2\include\ghcversion.h:
+  hash: 215ddac5a644eddece4748021e2caff6400a517822aedd66e9e9caf511124db8
+? C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\v03\.stack-work\dist\29614151\build\v03-test\autogen\Paths_v03.hs
+: hash: 0bc7ee81c12e55bd5ceaac21478313bfc6c8318949532a2252712c452b017b45
+? C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\v03\.stack-work\dist\29614151\build\v03-test\autogen\cabal_macros.h
+: hash: e49605dfa575b39a145dd4baf23bc4c8b508e25f41009e53978d8a0ce8acbd80
+C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\v03\package.yaml:
+  hash: c42cc1c88018a0154274bca918e32fc283150e393f943a74d49041b74541f63d
+C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\v03\test\SwitchableStackTests.hs:
+  hash: dd857605e58c95d0bd2e42eebb0fd424afd2ab7323c0f2a8dcbdcd77ec0fc842
+C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\v03\test\TestRunner.hs:
+  hash: 7c361b6f72b97804d8551617122547bf7a047140ac5276555dddb5d4afd4f7ce
+C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\v03\test\TestingFramework.hs:
+  hash: c1acf273b0e83692c15def4cc2c3a7f3a6845b84a2e9eecc2b99eb401409e627
+C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\v03\v03.cabal:
+  hash: 2413ba02c2ccf3158039be6f69f47e1316693b27b5b2a21ac1bb7b642fddcbbe
