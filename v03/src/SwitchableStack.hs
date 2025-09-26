@@ -49,10 +49,6 @@ can be popped off it. -}
 setActive :: State a -> State a
 setActive (State {active = _, stack = st}) = State {active = True, stack = st}
 
--- Helper function for removal of duplicates
-count :: (Eq a) => a -> [a] -> Int
-count x xs = length (filter (== x) xs)
-
 {- This edits elements on the stack according to the provided function.
    However, this edit may cause duplicates to be added. After mapping the state,
    be sure to remove duplicate elements. -}
