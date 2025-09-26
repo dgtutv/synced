@@ -41,13 +41,13 @@ pop (State {active = act, stack = x : xs})
 When a stack is inactive, elements can be pushed on it, but they
 cannot be popped off it. -}
 setInactive :: State a -> State a
-setInactive = error "Unimplemented"
+setInactive (State {active = _, stack = st}) = State {active = False, stack = st}
 
 {- This should switch the stack to the "active" state.
 When a stack is active, elements can be pushed on it, and they
 can be popped off it. -}
 setActive :: State a -> State a
-setActive = error "Unimplemented"
+setActive (State {active = _, stack = st}) = State {active = True, stack = st}
 
 {- This edits elements on the stack according to the provided function.
    However, this edit may cause duplicates to be added. After mapping the state,
