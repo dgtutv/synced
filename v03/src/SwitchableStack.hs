@@ -24,6 +24,7 @@ empty = State {active = True, stack = []}
    If the element already exists on the stack, do not edit the state. -}
 push :: (Eq a) => State a -> a -> State a
 push (State {active = act, stack = st}) a
+  | a `elem` st = State {active = act, stack = st}
   | act = State {active = act, stack = a : st} -- Add duplicate protection
   | otherwise = State {active = act, stack = st}
 
