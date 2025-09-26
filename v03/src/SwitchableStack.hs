@@ -33,9 +33,9 @@ push (State {active = act, stack = st}) a
    If the stack is not active, return Nothing and an unedited version
    of the stack. -}
 pop :: State a -> (Maybe a, State a)
-pop (State {active = act, stack = x : xs})
-  | act = (Just x, State {active = act, stack = xs})
-  | otherwise = (Nothing, State {active = act, stack = x : xs})
+pop (State {active = act, stack = []}) = (Nothing, State {active = act, stack = []})
+pop (State {active = False, stack = st}) = (Nothing, State {active = False, stack = st})
+pop (State {active = True, stack = x : xs}) = (Just x, State {active = True, stack = xs})
 
 {- This should switch the stack to the "inactive" state.
 When a stack is inactive, elements can be pushed on it, but they
@@ -58,7 +58,7 @@ count x xs = length (filter (== x) xs)
    be sure to remove duplicate elements. -}
 mapState :: (Eq b) => (a -> b) -> State a -> State b
 mapState fn (State {active = act, stack = st}) =
-  State {active = act, stack = filter (\b -> count b mappedStack == 1) mappedStack}
+  State {active = act, stack = nub mappedStack}
   where
     mappedStack = map fn st
 
