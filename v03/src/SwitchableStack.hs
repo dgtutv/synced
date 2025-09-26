@@ -64,7 +64,7 @@ mapState fn (State {active = act, stack = st}) =
    Do not pop any elements from the stack if the stack is inactive. -}
 popWhere :: (a -> Bool) -> State a -> ([a], State a)
 popWhere fn (State {active = act, stack = []}) = ([], State {active = act, stack = []})
-popWhere fn (State {active = True, stack = st}) = (filteredStack, State {active = True, stack = filteredStack})
+popWhere fn (State {active = True, stack = st}) = (filteredStack, State {active = True, stack = remainingStack})
   where
     filteredStack = filter fn st
     remainingStack = filter (not . fn) st
