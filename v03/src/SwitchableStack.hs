@@ -23,7 +23,9 @@ empty = State {active = True, stack = []}
    In this stack, you cannot have two of the element on the stack.
    If the element already exists on the stack, do not edit the state. -}
 push :: (Eq a) => State a -> a -> State a
-push = error "Unimplemented"
+push (State {active = act, stack = st}) a
+  | act = State {active = act, stack = a : st} -- Add duplicate protection
+  | otherwise = State {active = act, stack = st}
 
 {- This should pop the most recently added element off the stack.
    If there are no elements on the stack, return Nothing and an
