@@ -25,8 +25,8 @@ empty = State {active = True, stack = []}
 push :: (Eq a) => State a -> a -> State a
 push (State {active = act, stack = st}) a
   | a `elem` st = State {active = act, stack = st}
-  | act = State {active = act, stack = a : st} -- Add duplicate protection
-  | otherwise = State {active = act, stack = st}
+  | otherwise = State {active = act, stack = a : st} 
+
 
 {- This should pop the most recently added element off the stack.
    If there are no elements on the stack, return Nothing and an
@@ -34,7 +34,7 @@ push (State {active = act, stack = st}) a
    If the stack is not active, return Nothing and an unedited version
    of the stack. -}
 pop :: State a -> (Maybe a, State a)
-pop = error "Unimplemented"
+pop (State {active = act, stack = })
 
 {- This should switch the stack to the "inactive" state.
 When a stack is inactive, elements can be pushed on it, but they
