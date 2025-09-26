@@ -63,4 +63,8 @@ mapState fn (State {active = act, stack = st}) =
    the provided predicate, in the original order.
    Do not pop any elements from the stack if the stack is inactive. -}
 popWhere :: (a -> Bool) -> State a -> ([a], State a)
-popWhere = error "Unimplemented"
+popWhere fn (State {active = act, stack = []}) = ([], State {active = act, stack = []})
+popWhere fn (State {active = True, stack = st}) = (filteredStack, State {active = True, stack = filteredStack})
+  where
+    filteredStack = filter fn st
+    remainingStack = filter (not . fn) st
