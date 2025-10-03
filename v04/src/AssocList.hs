@@ -1,12 +1,16 @@
-module AssocList(AssocList(..),doubleMap) where
+module AssocList (AssocList (..), doubleMap) where
 
-data AssocList k a = 
-     Nil
-   | Cons(k,a,AssocList k a)
-   deriving (Eq,Show)
+data AssocList k a
+  = Nil
+  | Cons (k, a, AssocList k a) -- Key, value (could be datatypes or values), List of values
+  -- (x:xs, where x = (k, a))
+  deriving (Eq, Show)
 
+-- Transform data of AssocList
 instance Functor (AssocList k) where
-   fmap = error "Unimplemented"
+  fmap fn Nil = Nil
+  fmap fn (Cons (currK, currV, xs)) = Cons (currK, fn currV, fmap fn xs)
 
-doubleMap :: (k -> a -> (k',a')) -> AssocList k a -> AssocList k' a'
+-- Transform data and keys of AssocList
+doubleMap :: (k -> a -> (k', a')) -> AssocList k a -> AssocList k' a'
 doubleMap = error "Unimplemented"
