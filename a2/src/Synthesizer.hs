@@ -39,10 +39,10 @@ varExpressionsAtSize (Context lst) x
 notExpressionsAtSize :: (Int -> [Expression]) -> Int -> [Expression]
 notExpressionsAtSize f 0 = []
 notExpressionsAtSize f 1 = []
-notExpressionsAtSize f 2 = [ENot (EBase False), ENot (EBase True)]
-notExpressionsAtSize fn size = fmap ENot (fn size)
+notExpressionsAtSize fn size = fmap ENot (fn (size - 1))
 
 andExpressionsAtSize :: (Int -> [Expression]) -> Int -> [Expression]
+andExpressionsAtSize _ 0 = []
 andExpressionsAtSize f n = do
   (leftNums, rightNums) <- numberSplit (n - 1)
   leftExpressions <- f leftNums
@@ -50,6 +50,7 @@ andExpressionsAtSize f n = do
   return (EAnd (leftExpressions, rightExpressions))
 
 orExpressionsAtSize :: (Int -> [Expression]) -> Int -> [Expression]
+orExpressionsAtSize _ 0 = []
 orExpressionsAtSize f n = do
   (leftNums, rightNums) <- numberSplit (n - 1)
   leftExpressions <- f leftNums
@@ -57,7 +58,14 @@ orExpressionsAtSize f n = do
   return (EOr (leftExpressions, rightExpressions))
 
 expressionsAtSize :: Context -> Int -> [Expression]
-expressionsAtSize = error "Unimplemented"
+expressionsAtSize _ 0 = []
+expressionsAtSize context n = andExpressions ++ orExpressions ++ notExpressions ++ varExpressions ++ baseExpressions
+  where
+    andExpressions = andExpressionsAtSize (expressionsAtSize context) n
+    orExpressions = orExpressionsAtSize (expressionsAtSize context) n
+    notExpressions = notExpressionsAtSize (expressionsAtSize context) n
+    varExpressions = varExpressionsAtSize context n
+    baseExpressions = baseExpressionsAtSize n
 
 expressionSatisfiesExamples :: Examples -> Expression -> Bool
 expressionSatisfiesExamples = error "Unimplemented"
