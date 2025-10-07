@@ -92,4 +92,4 @@ loop context examples i max =
             else Nothing
 
 generator :: Context -> Examples -> Int -> Maybe Expression
-generator context (Examples examples) maxSize = error "Unimplemented"
+generator context examples = loop context examples 1
