@@ -27,7 +27,9 @@ numberSplit 1 = []
 numberSplit x = boolCombos x 0
 
 baseExpressionsAtSize :: Int -> [Expression]
-baseExpressionsAtSize = error "Unimplemented"
+baseExpressionsAtSize x
+  | x /= 1 = []
+  | x == 1 = [EBase True, EBase False]
 
 varExpressionsAtSize :: Context -> Int -> [Expression]
 varExpressionsAtSize = error "Unimplemented"
