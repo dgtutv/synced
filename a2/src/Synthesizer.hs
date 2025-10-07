@@ -43,9 +43,11 @@ notExpressionsAtSize f 2 = [ENot (EBase False), ENot (EBase True)]
 notExpressionsAtSize fn size = fmap ENot (fn size)
 
 andExpressionsAtSize :: (Int -> [Expression]) -> Int -> [Expression]
-andExpressionsAtSize f 0 = []
 andExpressionsAtSize f n = do
-  error "Unimplemented"
+  (leftNums, rightNums) <- numberSplit (n - 1)
+  leftExpressions <- f leftNums
+  rightExpressions <- f rightNums
+  return (EAnd (leftExpressions, rightExpressions))
 
 orExpressionsAtSize :: (Int -> [Expression]) -> Int -> [Expression]
 orExpressionsAtSize f 0 = []
