@@ -1,0 +1,16 @@
+C:\Users\dgtut\AppData\Local\Programs\stack\x86_64-windows\ghc-9.6.7\lib\x86_64-windows-ghc-9.6.7\rts-1.0.2\include\ghcversion.h:
+  hash: 215ddac5a644eddece4748021e2caff6400a517822aedd66e9e9caf511124db8
+? C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\a2\.stack-work\dist\29614151\build\a2-test\autogen\Paths_a2.hs
+: hash: af2fb4738856b207a75c38a1f9baf5fd7d7d3ea0591acdfdf76b43608c35e350
+? C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\a2\.stack-work\dist\29614151\build\a2-test\autogen\cabal_macros.h
+: hash: c879e0f59fb368a3eb03158a1dcc2d14a75be520aca6ddbcb64167e27f89190c
+C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\a2\a2.cabal:
+  hash: 23b17200ec129053d375005209fe9e7e75e51983acb7fa38e119081ac3796c8a
+C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\a2\package.yaml:
+  hash: 549385a7b9daa1fc46b951eb7de14f42dc1abe82e2278bc4f6034aba108285fa
+C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\a2\test\SynthesizerTests.hs:
+  hash: 67c133f8b1ec65d4605b33b53628af84e27639bb95a77ed036542f961bfbb8af
+C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\a2\test\TestRunner.hs:
+  hash: 0b0f7c1227518bc144696026c0d6ee24f13f9677e1549b00bd48f0c119e11b37
+C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\a2\test\TestingFramework.hs:
+  hash: b711252288a5a06657aff4356309e63f074843d09d476a85e6736343bca06aff
