@@ -79,5 +79,17 @@ expressionSatisfiesExamples (Examples examples) expression = all (\(assignment, 
     HINT: The "find" function will be useful here
     HINT: The "evaluate" function will be useful here
 -}
+
+loop :: Context -> Examples -> Int -> Int -> Maybe Expression
+loop context examples i max =
+  let expressions = expressionsAtSize context i
+      found = find (expressionSatisfiesExamples examples) expressions
+   in if isJust found
+        then found
+        else
+          if i < max
+            then loop context examples (i + 1) max
+            else Nothing
+
 generator :: Context -> Examples -> Int -> Maybe Expression
-generator = error "Unimplemented"
+generator context (Examples examples) maxSize = error "Unimplemented"
