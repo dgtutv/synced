@@ -68,7 +68,7 @@ expressionsAtSize context n = andExpressions ++ orExpressions ++ notExpressions 
     baseExpressions = baseExpressionsAtSize n
 
 expressionSatisfiesExamples :: Examples -> Expression -> Bool
-expressionSatisfiesExamples = error "Unimplemented"
+expressionSatisfiesExamples (Examples examples) expression = all (\(assignment, expectedOutput) -> evaluate assignment expression == expectedOutput) examples
 
 {-  Generate an expression that satisfies the examples. Check if there are
     examples at size 1, then at size 2, ... until either there are no
