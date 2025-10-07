@@ -37,7 +37,10 @@ varExpressionsAtSize (Context lst) x
   | x == 1 = fmap EVariable lst
 
 notExpressionsAtSize :: (Int -> [Expression]) -> Int -> [Expression]
-notExpressionsAtSize = error "Unimplemented"
+notExpressionsAtSize f 0 = []
+notExpressionsAtSize f 1 = []
+notExpressionsAtSize f 2 = [ENot (EBase False), ENot (EBase True)]
+notExpressionsAtSize fn size = fmap ENot (fn size)
 
 andExpressionsAtSize :: (Int -> [Expression]) -> Int -> [Expression]
 andExpressionsAtSize f 0 = []
