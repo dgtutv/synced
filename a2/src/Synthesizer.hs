@@ -50,9 +50,11 @@ andExpressionsAtSize f n = do
   return (EAnd (leftExpressions, rightExpressions))
 
 orExpressionsAtSize :: (Int -> [Expression]) -> Int -> [Expression]
-orExpressionsAtSize f 0 = []
 orExpressionsAtSize f n = do
-  error "Unimplemented"
+  (leftNums, rightNums) <- numberSplit (n - 1)
+  leftExpressions <- f leftNums
+  rightExpressions <- f rightNums
+  return (EOr (leftExpressions, rightExpressions))
 
 expressionsAtSize :: Context -> Int -> [Expression]
 expressionsAtSize = error "Unimplemented"
