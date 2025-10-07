@@ -32,7 +32,9 @@ baseExpressionsAtSize x
   | x == 1 = [EBase True, EBase False]
 
 varExpressionsAtSize :: Context -> Int -> [Expression]
-varExpressionsAtSize = error "Unimplemented"
+varExpressionsAtSize (Context lst) x
+  | x /= 1 = []
+  | x == 1 = fmap EVariable lst
 
 notExpressionsAtSize :: (Int -> [Expression]) -> Int -> [Expression]
 notExpressionsAtSize = error "Unimplemented"
