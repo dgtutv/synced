@@ -18,4 +18,6 @@ instance Applicative (WarningAccumulator w) where
 
 instance Monad (WarningAccumulator w) where
   return = pure
-  (>>=) = error "Unimplemented"
+  (WarningAccumulator (a, w1)) >>= fn = WarningAccumulator (modData, w1 ++ w2)
+    where
+      WarningAccumulator (modData, w2) = fn a
