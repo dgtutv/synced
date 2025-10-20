@@ -28,5 +28,11 @@ pub fn find_elt<T: Eq>(v: Vec<T>, elt: T) -> Option<usize> {
 }
 
 pub fn all_indices<T: Eq>(v: Vec<T>, elt: T) -> Vec<usize> {
-    unimplemented!();
+    let mut ret = Vec::new();
+    for (index, element) in v.iter().enumerate() {
+        if (*element == elt) {
+            ret.push(index);
+        }
+    }
+    ret
 }
