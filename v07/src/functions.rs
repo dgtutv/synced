@@ -19,7 +19,12 @@ pub fn hailstone_sequence(init: u32) -> Vec<u32> {
 }
 
 pub fn find_elt<T: Eq>(v: Vec<T>, elt: T) -> Option<usize> {
-    unimplemented!();
+    for (index, element) in v.iter().enumerate() {
+        if (*element == elt) {
+            return Some(index);
+        }
+    }
+    return None;
 }
 
 pub fn all_indices<T: Eq>(v: Vec<T>, elt: T) -> Vec<usize> {
