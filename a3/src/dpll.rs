@@ -1,42 +1,51 @@
 pub mod cnf_formula;
 use cnf_formula::*;
 
-pub fn find_propogatable(f:& Formula) -> Option<(Variable,bool)> {
+pub fn find_propogatable(f: &Formula) -> Option<(Variable, bool)> {
+    for clause in f {
+        if clause.len() == 1 {
+            match &clause[0] {
+                /* pattern match single clause */
+                Atom::Base(v) => return Some((*v, true)),
+                Atom::Not(v) => return Some((*v, false)),
+            }
+        }
+    }
+    return None;
+}
+
+pub fn propogate_unit(f: &mut Formula, v: Variable, b: bool) {
     unimplemented!()
 }
 
-pub fn propogate_unit(f:& mut Formula,v:Variable,b:bool) {
+pub fn find_pure_var(f: &Formula) -> Option<Variable> {
     unimplemented!()
 }
 
-pub fn find_pure_var(f:& Formula) -> Option<Variable> {
+pub fn assign_pure_var(f: &mut Formula, v: Variable) {
     unimplemented!()
 }
 
-pub fn assign_pure_var(f: & mut Formula, v: Variable) {
-    unimplemented!()
-}
-
-pub fn unit_propogate(f:& mut Formula) {
+pub fn unit_propogate(f: &mut Formula) {
     match find_propogatable(f) {
         Option::None => return,
-        Option::Some((v,b)) => {
+        Option::Some((v, b)) => {
             propogate_unit(f, v, b);
             unit_propogate(f)
         }
     }
 }
 
-pub fn assign_pure_vars(f:& mut Formula) {
+pub fn assign_pure_vars(f: &mut Formula) {
     match find_pure_var(f) {
         Option::None => return,
         Option::Some(v) => {
-            assign_pure_var(f,v);
-            assign_pure_vars(f); 
+            assign_pure_var(f, v);
+            assign_pure_vars(f);
         }
     }
 }
 
-pub fn dpll(f:& mut Formula) -> bool {
+pub fn dpll(f: &mut Formula) -> bool {
     unimplemented!()
 }
