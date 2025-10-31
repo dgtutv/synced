@@ -99,6 +99,43 @@ pub fn assign_pure_vars(f: &mut Formula) {
     }
 }
 
+//choose first var
+pub fn choose_variable(f: &Formula) -> Option<Variable> {
+    for clause in f {
+        for atom in clause {
+            match atom {
+                Atom::Base(v) => return Some(*v),
+                Atom::Not(v) => return Some(*v),
+            }
+        }
+    }
+    None
+}
+
 pub fn dpll(f: &mut Formula) -> bool {
-    unimplemented!()
+    let mut cloned_f = f.clone();
+    unit_propogate(&mut cloned_f);
+    assign_pure_vars(&mut cloned_f);
+    if cloned_f.is_empty() {
+        return true;
+    }
+    let mut contains_empty = false;
+    for clause in cloned_f {
+        if clause.is_empty() {
+            contains_empty = true;
+        }
+    }
+    if contains_empty {
+        return false;
+    }
+
+    let v = match choose_variable(&f) {
+        Some(x) => x,
+        None => return false,
+    };
+    let mut lh = f.clone();
+    propogate_unit(&mut lh, v, true);
+    let mut rh = f.clone();
+    propogate_unit(&mut rh, v, false);
+    dpll(&mut lh) || dpll(&mut rh)
 }
