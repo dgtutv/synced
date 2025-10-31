@@ -59,7 +59,13 @@ pub fn propogate_unit(f: &mut Formula, v: Variable, b: bool) {
 }
 
 pub fn find_pure_var(f: &Formula) -> Option<Variable> {
-    unimplemented!()
+    let variables: Vec<Variable> = get_vars(f);
+    for v in variables {
+        if is_pure(f, v) {
+            return Some(v);
+        }
+    }
+    return None;
 }
 
 pub fn assign_pure_var(f: &mut Formula, v: Variable) {
