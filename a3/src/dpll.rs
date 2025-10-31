@@ -69,7 +69,14 @@ pub fn find_pure_var(f: &Formula) -> Option<Variable> {
 }
 
 pub fn assign_pure_var(f: &mut Formula, v: Variable) {
-    unimplemented!()
+    let mut new_formula: Formula = Vec::new();
+    for clause in f.iter() {
+        if has_var_clause(clause, v) {
+            continue;
+        }
+        new_formula.push(clause.to_vec());
+    }
+    *f = new_formula;
 }
 
 pub fn unit_propogate(f: &mut Formula) {
