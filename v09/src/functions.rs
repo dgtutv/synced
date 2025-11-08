@@ -10,8 +10,12 @@ pub fn return_if_satisfies_both<'a, 'b, T, F: Fn(&T) -> bool>(
     f: F,
     x: &'a T,
     y: &'b T,
-) -> Option<(&'static T, &'static T)> {
-    unimplemented!()
+) -> Option<(&'a T, &'b T)> {
+    if f(x) && f(y) {
+        Some((x, y))
+    } else {
+        None
+    }
 }
 
 #[derive(Clone, PartialEq, Debug)]
