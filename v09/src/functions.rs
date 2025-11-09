@@ -25,7 +25,10 @@ pub enum List<T> {
 }
 
 pub fn map<T, U, F: Fn(&T) -> U>(f: F, l: &List<T>) -> List<U> {
-    unimplemented!()
+    match l {
+        List::Nil => List::Nil,
+        List::Cons(head, tail) => List::Cons(f(head), Box::new(map(f, tail))),
+    }
 }
 
 pub fn concat<T: Copy>(l1: &List<T>, l2: &List<T>) -> List<T> {
