@@ -32,5 +32,8 @@ pub fn map<T, U, F: Fn(&T) -> U>(f: F, l: &List<T>) -> List<U> {
 }
 
 pub fn concat<T: Copy>(l1: &List<T>, l2: &List<T>) -> List<T> {
-    unimplemented!()
+    match l1 {
+        List::Nil => l2.clone(),
+        List::Cons(head, tail) => List::Cons(*head, Box::new(concat(tail, l2))),
+    }
 }
