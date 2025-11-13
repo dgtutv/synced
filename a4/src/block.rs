@@ -82,7 +82,21 @@ impl Block {
 
     pub fn hash_satisfies_difficulty(difficulty: u8, hash: Hash) -> bool {
         // TODO: does the hash `hash` have `difficulty` trailing 0s
-        unimplemented!()
+        let n_bytes = difficulty / 8;
+        let n_bits = difficulty % 8;
+        for byte in hash.iter().rev().take(n_bytes as usize) {
+            if *byte != 0 {
+                return false;
+            }
+        }
+        if n_bits > 0 {
+            let next_index = hash.len() - (n_bytes as usize) - 1;
+            let next_byte = hash[next_index];
+            if next_byte % (1 << n_bits) != 0 {
+                return false;
+            }
+        }
+        true
     }
 
     pub fn is_valid_for_proof(&self, proof: u64) -> bool {
