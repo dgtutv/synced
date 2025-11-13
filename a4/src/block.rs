@@ -32,7 +32,14 @@ impl Block {
 
     pub fn next(previous: &Block, data: String) -> Block {
         // TODO: create and return a block that could follow `previous` in the chain
-        unimplemented!()
+        let new_block = Block {
+            prev_hash: previous.hash(),
+            generation: previous.generation + 1,
+            difficulty: previous.difficulty,
+            data: data,
+            proof: None,
+        };
+        new_block
     }
 
     pub fn hash_string_for_proof(&self, proof: u64) -> String {
