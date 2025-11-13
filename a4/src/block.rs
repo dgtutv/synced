@@ -37,7 +37,16 @@ impl Block {
 
     pub fn hash_string_for_proof(&self, proof: u64) -> String {
         // TODO: return the hash string this block would have if we set the proof to `proof`.
-        unimplemented!()
+        //previous_hash: generation: difficulty: data: proof
+        let hash_string = self
+            .prev_hash
+            .iter()
+            .map(|byte| format!("{:02x}", byte))
+            .collect::<String>();
+        format!(
+            "{}:{}:{}:{}:{}",
+            hash_string, self.generation, self.difficulty, self.data, proof
+        )
     }
 
     pub fn hash_string(&self) -> String {
