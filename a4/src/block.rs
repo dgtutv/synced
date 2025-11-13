@@ -57,7 +57,10 @@ impl Block {
 
     pub fn hash_for_proof(&self, proof: u64) -> Hash {
         // TODO: return the block's hash as it would be if we set the proof to `proof`.
-        unimplemented!()
+        let str = self.hash_string_for_proof(proof);
+        let mut d = Sha256::new();
+        d.update(str.as_bytes());
+        Hash::from(d.finalize())
     }
 
     pub fn hash(&self) -> Hash {
