@@ -1,5 +1,5 @@
 use std::sync::mpsc;
-use std::thread;
+use std::{result, thread};
 
 pub trait Task {
     type Output: Send;
@@ -17,7 +17,34 @@ pub struct WorkQueue<TaskType: 'static + Task + Send> {
 impl<TaskType: 'static + Task + Send> WorkQueue<TaskType> {
     pub fn new(n_workers: usize) -> WorkQueue<TaskType> {
         // TODO: create the channels; start the worker threads; record their JoinHandles
-        unimplemented!()
+        let (send_tasks, recv_tasks) = spmc::channel();
+        let (send_output, recv_output) = mpsc::channel();
+        let mut workers = Vec::new();
+        for i in 0..n_workers {
+            let recv_local = recv_tasks.clone();
+            let send_local = send_output.clone();
+            let handle = thread::spawn(move || {
+                loop {
+                    let task: TaskType = match recv_local.recv() {
+                        Ok(t) => t, //Try to get task if sender open
+                        Err(_) => return,
+                    };
+
+                    if let Some(result) = task.run() {
+                        let ret_val = send_local.send(result);
+                    }
+                }
+            });
+
+            workers.push(handle);
+        }
+
+        WorkQueue {
+            send_tasks: Some(send_tasks),
+            recv_tasks: recv_tasks,
+            recv_output: recv_output,
+            workers,
+        }
     }
 
     fn run(recv_tasks: spmc::Receiver<TaskType>, send_output: mpsc::Sender<TaskType::Output>) {
