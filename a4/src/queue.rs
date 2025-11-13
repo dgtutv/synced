@@ -24,16 +24,7 @@ impl<TaskType: 'static + Task + Send> WorkQueue<TaskType> {
             let recv_local = recv_tasks.clone();
             let send_local = send_output.clone();
             let handle = thread::spawn(move || {
-                loop {
-                    let task: TaskType = match recv_local.recv() {
-                        Ok(t) => t, //Try to get task if sender open
-                        Err(_) => return,
-                    };
-
-                    if let Some(result) = task.run() {
-                        let ret_val = send_local.send(result);
-                    }
-                }
+                Self::run(recv_local, send_local);
             });
 
             workers.push(handle);
@@ -50,9 +41,14 @@ impl<TaskType: 'static + Task + Send> WorkQueue<TaskType> {
     fn run(recv_tasks: spmc::Receiver<TaskType>, send_output: mpsc::Sender<TaskType::Output>) {
         // TODO: the main logic for a worker thread
         loop {
-            let task_result = recv_tasks.recv();
-            // NOTE: task_result will be Err() if the spmc::Sender has been destroyed and no more messages can be received here
-            unimplemented!()
+            let task: TaskType = match recv_tasks.recv() {
+                Ok(t) => t, //Try to get task if sender open
+                Err(_) => return,
+            };
+
+            if let Some(result) = task.run() {
+                let ret_val = send_output.send(result);
+            }
         }
     }
 
