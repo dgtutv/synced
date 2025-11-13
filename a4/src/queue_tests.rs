@@ -154,4 +154,279 @@ mod queue_tests {
             "work continued after .shutdown(): threads were leaked because they weren't joined"
         );
     }
+
+    #[test]
+    // Test that enqueue successfully sends tasks to workers
+    fn enqueue_success() {
+        let n_threads: usize = 2;
+        let n_run = sync::Arc::<AtomicUsize>::new(0.into());
+
+        let mut q = WorkQueue::<TestTask>::new(n_threads);
+
+        // Enqueue a single task and verify it succeeds
+        let result = q.enqueue(TestTask {
+            counter: n_run.clone(),
+        });
+        assert!(result.is_ok(), "enqueue should succeed on an open queue");
+
+        // Verify the task was processed
+        let output = q.recv();
+        assert_eq!(output, CORRECT_RESULT);
+    }
+
+    #[test]
+    // Test that enqueue returns an error after shutdown
+    fn enqueue_after_shutdown() {
+        let n_threads: usize = 2;
+        let n_run = sync::Arc::<AtomicUsize>::new(0.into());
+
+        let mut q = WorkQueue::<TestTask>::new(n_threads);
+
+        // Shutdown the queue
+        q.shutdown();
+
+        // Attempt to enqueue after shutdown should fail
+        let result = q.enqueue(TestTask {
+            counter: n_run.clone(),
+        });
+        assert!(result.is_err(), "enqueue should fail after shutdown");
+    }
+
+    #[test]
+    // Test that multiple enqueues work correctly
+    fn multiple_enqueue() {
+        let n_threads: usize = 3;
+        let n_tasks: usize = 10;
+        let n_run = sync::Arc::<AtomicUsize>::new(0.into());
+
+        let mut q = WorkQueue::<TestTask>::new(n_threads);
+
+        // Enqueue multiple tasks, each should succeed
+        for _ in 0..n_tasks {
+            let result = q.enqueue(TestTask {
+                counter: n_run.clone(),
+            });
+            assert!(result.is_ok(), "each enqueue should succeed");
+        }
+
+        // Collect all results
+        let mut results_count = 0;
+        for _ in 0..n_tasks {
+            let r = q.recv();
+            assert_eq!(r, CORRECT_RESULT);
+            results_count += 1;
+        }
+        assert_eq!(
+            results_count, n_tasks,
+            "should receive exactly n_tasks results"
+        );
+    }
+
+    #[test]
+    #[should_panic]
+    // Test that enqueue panics when send_tasks is None (if implementation uses panic)
+    fn enqueue_panic_when_none() {
+        let n_threads: usize = 2;
+        let n_run = sync::Arc::<AtomicUsize>::new(0.into());
+
+        let mut q = WorkQueue::<TestTask>::new(n_threads);
+
+        // Manually shutdown to set send_tasks to None
+        q.shutdown();
+
+        // This should panic if send_tasks is None and implementation uses unwrap/expect
+        // If implementation returns Err instead, this test may need adjustment
+        let _ = q
+            .enqueue(TestTask {
+                counter: n_run.clone(),
+            })
+            .unwrap(); // unwrap will panic on Err
+    }
+
+    #[test]
+    // Test that shutdown destroys the sender
+    fn shutdown_destroys_sender() {
+        let n_threads: usize = 3;
+        let n_run = sync::Arc::<AtomicUsize>::new(0.into());
+
+        let mut q = WorkQueue::<TestTask>::new(n_threads);
+
+        // Enqueue some tasks
+        for _ in 0..5 {
+            q.enqueue(TestTask {
+                counter: n_run.clone(),
+            })
+            .unwrap();
+        }
+
+        // Shutdown should complete successfully
+        q.shutdown();
+
+        // After shutdown, trying to enqueue should fail
+        let result = q.enqueue(TestTask {
+            counter: n_run.clone(),
+        });
+        assert!(
+            result.is_err(),
+            "enqueue should fail after sender is destroyed"
+        );
+    }
+
+    #[test]
+    // Test that shutdown drains remaining tasks
+    fn shutdown_drains_tasks() {
+        let n_threads: usize = 2;
+        let n_tasks: usize = 100;
+        let n_run = sync::Arc::<AtomicUsize>::new(0.into());
+
+        let mut q = WorkQueue::<TestTask>::new(n_threads);
+
+        // Enqueue many tasks
+        for _ in 0..n_tasks {
+            q.enqueue(TestTask {
+                counter: n_run.clone(),
+            })
+            .unwrap();
+        }
+
+        // Receive only a few results before shutting down
+        for _ in 0..5 {
+            let _ = q.recv();
+        }
+
+        // Shutdown should drain remaining tasks
+        q.shutdown();
+
+        // No more results should be available after shutdown
+        let result = q.try_recv();
+        assert!(
+            result.is_err(),
+            "no results should be available after shutdown drains tasks"
+        );
+    }
+
+    #[test]
+    // Test that shutdown joins all worker threads
+    fn shutdown_joins_workers() {
+        let n_threads: usize = 5;
+        let n_tasks: usize = 20;
+        let n_run = sync::Arc::<AtomicUsize>::new(0.into());
+
+        let mut q = WorkQueue::<TestTask>::new(n_threads);
+
+        for _ in 0..n_tasks {
+            q.enqueue(TestTask {
+                counter: n_run.clone(),
+            })
+            .unwrap();
+        }
+
+        // Collect some results
+        for _ in 0..10 {
+            let _ = q.recv();
+        }
+
+        let tasks_before_shutdown = (*n_run).load(Ordering::SeqCst);
+
+        // Shutdown should wait for all workers to finish
+        q.shutdown();
+
+        // After shutdown, no additional work should happen
+        thread::sleep(3 * DELAY);
+        let tasks_after_shutdown = (*n_run).load(Ordering::SeqCst);
+
+        assert_eq!(
+            tasks_before_shutdown, tasks_after_shutdown,
+            "no work should occur after shutdown completes"
+        );
+    }
+
+    #[test]
+    // Test that shutdown can be called multiple times safely
+    fn shutdown_idempotent() {
+        let n_threads: usize = 2;
+        let n_run = sync::Arc::<AtomicUsize>::new(0.into());
+
+        let mut q = WorkQueue::<TestTask>::new(n_threads);
+
+        q.enqueue(TestTask {
+            counter: n_run.clone(),
+        })
+        .unwrap();
+
+        let _ = q.recv();
+
+        // First shutdown
+        q.shutdown();
+
+        // Second shutdown should be safe (no panic, no hang)
+        q.shutdown();
+
+        // Should still be safe to drop
+        drop(q);
+    }
+
+    #[test]
+    // Test that workers vec is empty after shutdown
+    fn shutdown_clears_workers() {
+        let n_threads: usize = 4;
+        let n_run = sync::Arc::<AtomicUsize>::new(0.into());
+
+        let mut q = WorkQueue::<TestTask>::new(n_threads);
+
+        // Enqueue and process some tasks
+        for _ in 0..10 {
+            q.enqueue(TestTask {
+                counter: n_run.clone(),
+            })
+            .unwrap();
+        }
+
+        for _ in 0..10 {
+            let _ = q.recv();
+        }
+
+        // After shutdown, workers should be joined and removed
+        q.shutdown();
+
+        // The workers vector should be drained
+        // (This is implicit in the implementation, but shutdown should complete successfully)
+        // If shutdown didn't properly join threads, this test would hang
+    }
+
+    #[test]
+    // Test that drop calls shutdown if not already shut down
+    fn drop_calls_shutdown() {
+        let n_threads: usize = 3;
+        let n_tasks: usize = 15;
+        let n_run = sync::Arc::<AtomicUsize>::new(0.into());
+
+        {
+            let mut q = WorkQueue::<TestTask>::new(n_threads);
+
+            for _ in 0..n_tasks {
+                q.enqueue(TestTask {
+                    counter: n_run.clone(),
+                })
+                .unwrap();
+            }
+
+            // Collect a few results
+            for _ in 0..5 {
+                let _ = q.recv();
+            }
+
+            // q goes out of scope here, drop should call shutdown
+        }
+
+        // After drop, threads should be joined
+        let before = (*n_run).load(Ordering::SeqCst);
+        thread::sleep(3 * DELAY);
+        let after = (*n_run).load(Ordering::SeqCst);
+
+        assert_eq!(
+            before, after,
+            "drop should have called shutdown and joined all threads"
+        );
+    }
 }

@@ -54,7 +54,8 @@ impl<TaskType: 'static + Task + Send> WorkQueue<TaskType> {
 
     pub fn enqueue(&mut self, t: TaskType) -> Result<(), spmc::SendError<TaskType>> {
         // TODO: send this task to a worker
-        unimplemented!()
+        let sender = self.send_tasks.as_mut().expect("WorkQueue is closed");
+        sender.send(t)
     }
 
     // Helper methods that let you receive results in various ways
@@ -80,7 +81,11 @@ impl<TaskType: 'static + Task + Send> WorkQueue<TaskType> {
         // TODO: destroy the spmc::Sender so everybody knows no more tasks are incoming;
         // drain any pending tasks in the queue; wait for each worker thread to finish.
         // HINT: Vec.drain(..)
-        unimplemented!()
+        self.send_tasks = None;
+        while let Ok(_task) = self.recv_tasks.try_recv() {}
+        for worker in self.workers.drain(..) {
+            let _ = worker.join();
+        }
     }
 }
 
