@@ -11,7 +11,13 @@ pub fn shared_state_incr(x: Arc<Mutex<i32>>) {
 }
 
 pub fn distributed_receive_incr(rec: Receiver<fn(i32) -> i32>, mut x: i32) -> i32 {
-    unimplemented!();
+    loop {
+        let f = match rec.recv() {
+            Ok(v) => v, //Get value if sender open
+            Err(_) => return x,
+        };
+        x = f(x);
+    }
 }
 
 pub fn distributed_send_incr(
