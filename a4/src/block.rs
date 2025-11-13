@@ -125,9 +125,36 @@ impl Block {
         // TODO: with `workers` threads, check proof values in the given range, breaking up
         // into `chunks` tasks in a work queue. Return the first valid proof found.
         // HINTS:
-        // - Create and use a queue::WorkQueue.
+
         // - Use sync::Arc to wrap a clone of self for sharing.
-        unimplemented!()
+        let block_arc = sync::Arc::new(self.clone());
+
+        // - Create and use a queue::WorkQueue.
+        let mut queue = WorkQueue::<MiningTask>::new(workers);
+        let chunk_size = (end - start) / chunks;
+
+        for i in 0..chunks {
+            let chunk_start = start + i * chunk_size;
+            let chunk_end = if i == chunks - 1 {
+                end
+            } else {
+                chunk_start + chunk_size
+            };
+            let task = MiningTask {
+                block: block_arc.clone(),
+                start: chunk_start,
+                end: chunk_end,
+            };
+            queue.enqueue(task);
+        }
+
+        for proof in queue.iter() {
+            queue.shutdown();
+            return proof;
+        }
+
+        queue.shutdown();
+        panic!("No valid proof found in the given range");
     }
 
     pub fn mine_for_proof(self: &Block, workers: usize) -> u64 {
@@ -145,6 +172,8 @@ impl Block {
 struct MiningTask {
     block: sync::Arc<Block>,
     // TODO: more fields as needed
+    start: u64,
+    end: u64,
 }
 
 impl Task for MiningTask {
@@ -152,6 +181,12 @@ impl Task for MiningTask {
 
     fn run(&self) -> Option<u64> {
         // TODO: what does it mean to .run?
-        unimplemented!()
+        for proof in self.start..self.end {
+            let hash = self.block.hash_for_proof(proof);
+            if Block::hash_satisfies_difficulty(self.block.difficulty, hash) {
+                return Some(proof);
+            }
+        }
+        None
     }
 }
