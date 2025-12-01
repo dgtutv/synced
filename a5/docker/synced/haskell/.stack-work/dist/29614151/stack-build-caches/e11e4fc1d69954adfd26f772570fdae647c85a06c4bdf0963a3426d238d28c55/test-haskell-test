@@ -1,0 +1,16 @@
+C:\Users\dgtut\AppData\Local\Programs\stack\x86_64-windows\ghc-9.6.7\lib\x86_64-windows-ghc-9.6.7\rts-1.0.2\include\ghcversion.h:
+  hash: 215ddac5a644eddece4748021e2caff6400a517822aedd66e9e9caf511124db8
+? C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\a5\docker\synced\haskell\.stack-work\dist\29614151\build\haskell-test\autogen\Paths_haskell.hs
+: hash: 0f015ffa58a87ba8d44856d61ac559b0be9e48210673d0a195f2cf8d6df7782d
+? C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\a5\docker\synced\haskell\.stack-work\dist\29614151\build\haskell-test\autogen\cabal_macros.h
+: hash: 4db1ad78970ee8535ddf5372eb1f24abaa044a47e46219f66a2fb2de5b340e4d
+C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\a5\docker\synced\haskell\haskell.cabal:
+  hash: 080404c6c69582ad859fd0dfddff817da0b4af9f46301960daa970723fae4f4a
+C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\a5\docker\synced\haskell\package.yaml:
+  hash: da64b0168160522e3fdd5bcec8d082f3df93e5baf2d50aad3314edac323bbdf4
+? C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\a5\docker\synced\haskell\test\InterpreterTests.hs
+: hash: 5652cb73ffb2ae46e22e2e13ab8ae206fdebcf0b058e619e08d18f3f4d59b442
+? C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\a5\docker\synced\haskell\test\TestRunner.hs
+: hash: b6a44c29b8c1f109e6b9eff65e502637d346d97b78620c38aaa4854c40f8e0df
+? C:\Users\dgtut\OneDrive - Simon Fraser University (1sfu)\Desktop\CMPT 383\docker\synced\a5\docker\synced\haskell\test\TestingFramework.hs
+: hash: b711252288a5a06657aff4356309e63f074843d09d476a85e6736343bca06aff

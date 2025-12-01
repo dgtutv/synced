@@ -28,7 +28,6 @@ executables:
     - -with-rtsopts=-N
     - -optl-L../rust/target/release
     - -optl-lrust
-    - -optl-Wl,-rpath,../rust/target/release
     dependencies:
     - haskell
 
@@ -42,6 +41,5 @@ tests:
     - -with-rtsopts=-N
     - -optl-L../rust/target/release
     - -optl-lrust
-    - -optl-Wl,-rpath,../rust/target/release
     dependencies:
     - haskell
