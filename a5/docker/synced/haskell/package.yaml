@@ -1,0 +1,47 @@
+name:                haskell
+version:             0.1.0.0
+
+dependencies:
+- base >= 4.7 && < 5
+
+ghc-options:
+- -Wall
+- -Wcompat
+- -Widentities
+- -Wincomplete-record-updates
+- -Wincomplete-uni-patterns
+- -Wmissing-export-lists
+- -Wmissing-home-modules
+- -Wpartial-fields
+- -Wredundant-constraints
+
+library:
+  source-dirs: src
+
+executables:
+  haskell-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    - -optl-L../rust/target/release
+    - -optl-lrust
+    - -optl-Wl,-rpath,../rust/target/release
+    dependencies:
+    - haskell
+
+tests:
+  haskell-test:
+    main:                TestRunner.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    - -optl-L../rust/target/release
+    - -optl-lrust
+    - -optl-Wl,-rpath,../rust/target/release
+    dependencies:
+    - haskell

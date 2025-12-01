@@ -1,0 +1,14 @@
+services:
+  haskell:
+    build:
+      context: .
+      dockerfile: sfu-haskell-rust/Dockerfile
+    restart: always
+    volumes:
+      - type: bind
+        source: ./synced
+        target: /home/apprunner/synced
+
+
+volumes:
+  haskell:

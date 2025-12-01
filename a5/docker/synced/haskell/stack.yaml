@@ -1,0 +1,9 @@
+resolver: ghc-9.6.7
+
+packages:
+- .
+
+extra-lib-dirs:
+- ../v06/target/release
+
+extra-include-dirs: []
